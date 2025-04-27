@@ -19,7 +19,7 @@ plugins:
 author:
   name   : Pale Blue Dot
   avatar : "/assets/images/bio-photo.jpg"
-  bio    : 개발자 스터디노트 및<br> 관심사 정보 메모
+  bio    : 개발자 스터디노트 및 <br> 관심사 정보 메모
 
 footer:
   links:
