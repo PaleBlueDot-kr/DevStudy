@@ -7,6 +7,7 @@ search: true
 
 markdown: kramdown
 remote_theme: "mmistakes/minimal-mistakes"
+minimal_mistakes_skin: default
 
 plugins:
   - jekyll-paginate
@@ -14,3 +15,18 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+
+author:
+  name   : pale Blue Dot
+  avatar : "/assets/images/bio-photo.jpg"
+  bio    : 개발자 스터디노트 및 관심사 정보 메모
+  links:
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/아이디"
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      url: "https://instagram.com/아이디"
