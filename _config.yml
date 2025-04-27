@@ -1,0 +1,16 @@
+title: 나의 블로그
+email: 
+description: 개발자 스터디 노트
+github_username: PaleBlueDot-kr
+minimal_mistakes_skin: default
+search: true
+
+markdown: kramdown
+remote_theme: "mmistakes/minimal-mistakes"
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jemoji
+  - jekyll-include-cache
