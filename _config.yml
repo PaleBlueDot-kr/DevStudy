@@ -17,13 +17,10 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : pale Blue Dot
+  name   : Pale Blue Dot
   avatar : "/assets/images/bio-photo.jpg"
   bio    : 개발자 스터디노트 및 관심사 정보 메모
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/PaleBlueDot-kr"
