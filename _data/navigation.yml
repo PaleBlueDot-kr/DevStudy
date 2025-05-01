@@ -1,7 +1,0 @@
-main:
-  - title: "홈"
-    url: /
-  - title: "about"
-    url: /about/
-  - title: "DevStudy"
-    url: /DevStudy/
