@@ -3,7 +3,7 @@ let currentPage = 1;
 const quotesPerPage = 6;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const messageEl = document.getElementById("message");
+  const quoteEl = document.getElementById("quote");
   const authorEl = document.getElementById("author");
   const authorProfileEl = document.getElementById("authorProfile");
   const button = document.getElementById("new-quote");
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const paginationEl = document.getElementById("bookmark-pagination");
   const closeBtn = document.getElementById("close-bookmark");
 
+  // 명언 줄바꿈 처리
   function splitQuote(text) {
     const charCount = text.length;
     if (charCount < 30) return text;
@@ -26,38 +27,41 @@ document.addEventListener("DOMContentLoaded", () => {
     return text;
   }
 
+  // 명언 불러오기 (로컬 JSON)
   async function fetchQuote() {
     try {
-      messageEl.classList.remove("quote-visible");
+      quoteEl.classList.remove("quote-visible");
       authorEl.classList.remove("quote-visible");
       authorProfileEl.classList.remove("quote-visible");
 
       setTimeout(async () => {
-        const res = await fetch("https://korean-advice-open-api.vercel.app/api/advice");
+        const res = await fetch("motivation_quotes.json");
         const data = await res.json();
+        const random = data[Math.floor(Math.random() * data.length)];
 
-        messageEl.innerHTML = `"${splitQuote(data.message)}"`;
-        authorEl.textContent = `- ${data.author}`;
-        authorProfileEl.textContent = `${data.authorProfile}`;
+        quoteEl.innerHTML = `"${splitQuote(random.message)}"`;
+        authorEl.textContent = `- ${random.author}`;
+        authorProfileEl.textContent = `${random.authorProfile}`;
 
-        messageEl.classList.add("quote-visible");
+        quoteEl.classList.add("quote-visible");
         authorEl.classList.add("quote-visible");
         authorProfileEl.classList.add("quote-visible");
       }, 100);
     } catch (error) {
-      messageEl.textContent = "명언을 가져오는 데 실패했습니다.";
+      quoteEl.textContent = "명언을 가져오는 데 실패했습니다.";
       authorEl.textContent = "";
       authorProfileEl.textContent = "";
       console.error("API 오류:", error);
     }
   }
 
+  // 텍스트 강조 애니메이션
   function highlightText() {
-    messageEl.classList.add("pulse");
+    quoteEl.classList.add("pulse");
     authorEl.classList.add("pulse");
     authorProfileEl.classList.add("pulse");
     setTimeout(() => {
-      messageEl.classList.remove("pulse");
+      quoteEl.classList.remove("pulse");
       authorEl.classList.remove("pulse");
       authorProfileEl.classList.remove("pulse");
     }, 145);
@@ -94,7 +98,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     renderPagination();
+    attachButtonEvents();
+  }
 
+  function renderPagination() {
+    paginationEl.innerHTML = "";
+    const totalPages = Math.ceil(copiedQuotes.length / quotesPerPage);
+    if (totalPages <= 1) return;
+
+    if (currentPage > 1) {
+      paginationEl.innerHTML += `<button onclick="goToPage(${currentPage - 1})">이전</button>`;
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+      paginationEl.innerHTML += `<button onclick="goToPage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
+    }
+
+    if (currentPage < totalPages) {
+      paginationEl.innerHTML += `<button onclick="goToPage(${currentPage + 1})">다음</button>`;
+    }
+  }
+
+  function attachButtonEvents() {
     document.querySelectorAll(".copy-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const idx = btn.getAttribute("data-index");
@@ -118,31 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function renderPagination() {
-    paginationEl.innerHTML = "";
-    const totalPages = Math.ceil(copiedQuotes.length / quotesPerPage);
-    if (totalPages <= 1) return;
-
-    if (currentPage > 1) {
-      paginationEl.innerHTML += `<button onclick="goToPage(${currentPage - 1})">이전</button>`;
-    }
-
-    for (let i = 1; i <= totalPages; i++) {
-      paginationEl.innerHTML += `<button onclick="goToPage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
-    }
-
-    if (currentPage < totalPages) {
-      paginationEl.innerHTML += `<button onclick="goToPage(${currentPage + 1})">다음</button>`;
-    }
-  }
-
   window.goToPage = function (page) {
     currentPage = page;
     updateBookmarkList();
   };
 
+  // 명언 클릭 시 복사
   quoteArea.addEventListener("click", () => {
-    const fullQuote = `${messageEl.textContent}\n${authorEl.textContent}\n${authorProfileEl.textContent}`;
+    const fullQuote = `${quoteEl.textContent}\n${authorEl.textContent}\n${authorProfileEl.textContent}`;
     navigator.clipboard.writeText(fullQuote).then(() => {
       copyAlert.classList.add("show");
       highlightText();
@@ -157,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // 초기 실행
   button.addEventListener("click", fetchQuote);
   bookmarkBtn.addEventListener("click", () => {
     bookmarkPanel.classList.toggle("open");
