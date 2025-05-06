@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       authorProfileEl.classList.remove("quote-visible");
 
       setTimeout(async () => {
-        const res = await fetch("motivation_quotes.json");
+        const res = await fetch("./motivation_quotes.json");
         const data = await res.json();
         const random = data[Math.floor(Math.random() * data.length)];
 
