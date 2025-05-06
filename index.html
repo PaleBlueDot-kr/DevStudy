@@ -6,30 +6,35 @@
   <title>Quotes</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <div class="app-container">
+    <!-- 헤더 영역 -->
     <header class="app-header">
-      <h3 class="haeder-title">Quotes</h3>
+      <h3 class="header-title">Quotes</h3>
       <button id="bookmark-btn" class="bookmark-btn" title="책갈피">🔖</button>
     </header>
-    
+
+    <!-- 중앙 명언 출력 영역 -->
     <main class="quote-area" id="quote-area">
-        <div id="message" class="quote-text">"명언이 여기에 표시됩니다"</div>
+      <div class="quote-content">
+        <div id="quote" class="quote-text">"명언이 여기에 표시됩니다"</div>
         <div id="author" class="quote-author">- 작가</div>
         <div id="authorProfile" class="quote-authorProfile">작가 설명</div>
+      </div>
     </main>
 
+    <!-- 복사 알림 -->
     <div id="copy-alert" class="copy-alert">Copy ✅</div>
-    
+
+    <!-- 하단 버튼 -->
     <footer>
       <button id="new-quote" class="quote-button">🎲</button>
     </footer>
   </div>
 
-  <!-- ⭐ 복사된 명언 사이드 패널 -->
+  <!-- 책갈피 사이드패널 -->
   <div id="bookmark-panel" class="bookmark-panel">
-    <button id="close-bookmark" class="close-btn" title="닫기">x</button>
+    <button id="close-bookmark" class="close-btn">x</button>
     <ul id="bookmark-list" class="bookmark-list"></ul>
     <div id="bookmark-pagination" class="bookmark-pagination"></div>
   </div>
