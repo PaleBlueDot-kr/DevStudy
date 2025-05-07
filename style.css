@@ -1,248 +1,135 @@
-/* 공통 초기화 */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-  background-color: #fff;
+  background: #fff;
   color: #333;
-  display: flex;
-  justify-content: center;
 }
 
-/* 앱 전체 컨테이너 */
 .app-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 500px;
-  height: 100vh;
-  box-sizing: border-box;
 }
 
-/* ------------------ 헤더 ------------------ */
-.app-header {
-  position: relative;
-  width: 100%;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.header-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.bookmark-btn {
+/* 스위치: 상단 1/4 지점 */
+.mode-toggle {
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.4rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
+  top: 25vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* ------------------ 중앙 명언 출력 영역 ------------------ */
+/* 명언 중앙 정렬 */
 .quote-area {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .quote-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
+  max-width: 500px;
+}
+
+.quote-text,
+.quote-author,
+.quote-authorProfile {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .quote-text {
-  font-size: 1.22rem;
+  font-size: 1.2rem;
   font-weight: 500;
-  margin-bottom: 20px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  margin-bottom: 16px;
 }
 
 .quote-author {
   font-size: 1rem;
   color: #888;
-  margin-bottom: 4px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
 .quote-authorProfile {
-  font-size: 0.8rem;
-  color: #5f5f5f;
+  font-size: 0.85rem;
+  color: #555;
   margin-top: 6px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
 .quote-visible {
   opacity: 1;
 }
 
-/* ------------------ 하단 버튼 ------------------ */
+/* 하단 버튼: 하단 1/4 지점 */
+.button-wrapper {
+  position: absolute;
+  bottom: 30vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .quote-button {
   background: transparent;
   color: #222;
   border: none;
-  padding: 10px 16px;
-  border-radius: 50%;
   font-size: 1.8rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-  max-width: 500px;
-  margin-bottom: 20px;
 }
 
 .quote-button:hover {
   background-color: #f5f5f5;
+  border-radius: 50%;
 }
 
 .quote-button:active {
-  transform: scale(0.90);
+  transform: scale(0.9);
 }
 
-/* ------------------ 복사 알림 ------------------ */
-.copy-alert {
-  position: fixed;
-  top: 60%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 1000;
-}
-
-.copy-alert.show {
-  opacity: 1;
-}
-
-/* ------------------ 북마크 패널 ------------------ */
-.bookmark-panel {
-  position: fixed;
-  top: 0;
-  right: -315px;
-  width: 280px;
-  height: 100%;
-  background-color: #fdfdfd;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-  transition: right 0.3s ease;
-  z-index: 999;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.bookmark-panel.open {
-  right: 0;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 0.9rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #666;
-}
-
-.bookmark-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.bookmark-list li {
-  margin-bottom: 16px;
-  font-size: 0.95rem;
-  background: #f7f7f7;
-  padding: 10px;
-  border-radius: 8px;
+/* 스위치 기본 스타일 */
+.switch {
   position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+.switch input {
   opacity: 0;
-  transform: translateY(10px);
-  animation: fadeInUp 0.4s forwards;
+  width: 0;
+  height: 0;
 }
-
-.bookmark-list .actions {
-  margin-top: 6px;
-  display: flex;
-  gap: 8px;
-}
-
-.bookmark-list button {
-  background: none;
-  border: none;
+.slider {
+  position: absolute;
   cursor: pointer;
-  font-size: 0.7rem;
-  color: #a1a1a1;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: 0.4s;
 }
-
-/* ------------------ 페이지네이션 ------------------ */
-.bookmark-pagination {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 12px;
-  flex-wrap: wrap;
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
 }
-
-.bookmark-pagination button {
-  background: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 0.85rem;
-  cursor: pointer;
+.switch input:checked + .slider {
+  background-color: #4c89af;
 }
-
-.bookmark-pagination button.active {
-  background-color: #333;
-  color: white;
+.switch input:checked + .slider:before {
+  transform: translateX(22px);
 }
-
-/* ------------------ 애니메이션 ------------------ */
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-  100% { transform: scale(1); }
-}
-
-@keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.75); }
-  100% { transform: scale(1); }
-}
-
-.pulse { animation: pulse 0.3s ease; }
-.copy-btn.clicked { animation: pop 0.25s ease; }
