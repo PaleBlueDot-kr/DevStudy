@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quotes</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-container">
-    <!-- 헤더 영역 -->
-    <header class="app-header">
-      <h3 class="header-title">Quotes</h3>
-      <button id="bookmark-btn" class="bookmark-btn" title="책갈피">🔖</button>
-    </header>
+    <!-- 상단 스위치 -->
+    <div class="mode-toggle">
+      <label class="switch">
+        <input type="checkbox" id="modeSwitch" />
+        <span class="slider"></span>
+      </label>
+    </div>
 
-    <!-- 중앙 명언 출력 영역 -->
+    <!-- 명언 출력 -->
     <main class="quote-area" id="quote-area">
       <div class="quote-content">
         <div id="quote" class="quote-text">"명언이 여기에 표시됩니다"</div>
@@ -23,22 +25,11 @@
       </div>
     </main>
 
-    <!-- 복사 알림 -->
-    <div id="copy-alert" class="copy-alert">Copy ✅</div>
-
     <!-- 하단 버튼 -->
-    <footer>
+    <div class="button-wrapper">
       <button id="new-quote" class="quote-button">🎲</button>
-    </footer>
-  </div>
-
-  <!-- 책갈피 사이드패널 -->
-  <div id="bookmark-panel" class="bookmark-panel">
-    <button id="close-bookmark" class="close-btn">x</button>
-    <ul id="bookmark-list" class="bookmark-list"></ul>
-    <div id="bookmark-pagination" class="bookmark-pagination"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-</html>
