@@ -70,27 +70,26 @@ html, body {
   opacity: 1;
 }
 
-/* 하단 버튼: 하단 1/4 지점 */
+/* 하단 버튼 */
 .button-wrapper {
   position: absolute;
-  bottom: 35vh;
+  bottom: 36vh;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .quote-button {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-
   background: transparent;
-  color: #ccc;
   border: none;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .shuffle-icon {
   width: 40px;
   height: 40px;
@@ -98,14 +97,13 @@ html, body {
 
 .quote-button:hover {
   background-color: #ececec;
-  border-radius: 50%;
 }
 
 .quote-button:active {
   transform: scale(0.97);
 }
 
-/* 스위치 기본 스타일 */
+/* 스위치 스타일 */
 .switch {
   position: relative;
   display: inline-block;
@@ -142,4 +140,53 @@ html, body {
 }
 .switch input:checked + .slider:before {
   transform: translateX(22px);
+}
+
+/* 확언 입력 영역 */
+.affirmation-input-wrapper {
+  position: absolute;
+  bottom: 37vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#affirmationInput {
+  padding: 8px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 200px;
+}
+
+#affirmationSubmit {
+  padding: 3px 15px;
+  font-size: 0.95rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 전환 효과 */
+.fade-transition {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  opacity: 0;
+  transform: translate(-50%, 0);
+}
+
+.fade-in {
+  opacity: 1 !important;
+  transform: translate(-50%, 0) !important;
+  pointer-events: auto;
+}
+
+.fade-out {
+  opacity: 0 !important;
+  transform: translate(-50%, 10px) !important;
+  pointer-events: none;
 }
