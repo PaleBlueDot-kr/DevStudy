@@ -25,13 +25,19 @@
       </div>
     </main>
 
-    <!-- 하단 버튼 -->
-    <div class="button-wrapper">
+    <!-- 주사위 버튼 -->
+    <div class="button-wrapper fade-transition" id="buttonWrapper">
       <button id="new-quote" class="quote-button">
         <img src="images/shuffle-icon.png" alt="주사위" class="shuffle-icon" />
       </button>
     </div>
-  </div>
 
+    <!-- 확언 입력 -->
+    <div class="affirmation-input-wrapper fade-transition" id="affirmationWrapper">
+      <input type="text" id="affirmationInput" placeholder="확언을 입력하세요" />
+      <button id="affirmationSubmit">Send</button>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
+</html>
