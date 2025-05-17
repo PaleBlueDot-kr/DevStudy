@@ -1,85 +1,103 @@
 let isAffirmationMode = false;
 
-const quoteEl = document.getElementById("quote");
+const quoteWrapperEl = document.getElementById("quote");
+const quoteTextEl = document.getElementById("quoteText");
 const authorEl = document.getElementById("author");
 const authorProfileEl = document.getElementById("authorProfile");
+const userQuoteEl = document.getElementById("userQuote");
 const quoteBtn = document.getElementById("buttonWrapper");
 const affirmationWrapper = document.getElementById("affirmationWrapper");
+const badgeEl = document.getElementById("affirmationCountBadge");
 
+// ✅ 카운트 함수
+function countAffirmation(message) {
+  const key = message.replace(/"/g, "").trim();
+  let counts = JSON.parse(localStorage.getItem("affirmationCounts")) || {};
+  counts[key] = (counts[key] || 0) + 1;
+  localStorage.setItem("affirmationCounts", JSON.stringify(counts));
+
+  const count = counts[key];
+  if (isAffirmationMode && badgeEl) {
+    badgeEl.textContent = count;
+    badgeEl.style.display = count > 0 ? "inline" : "none";
+  }
+}
+
+// ✅ 명언 또는 확언 불러오기
 async function fetchQuote() {
   const quoteFile = isAffirmationMode ? "affirmations.json" : "motivation_quotes.json";
 
   try {
-    quoteEl.classList.remove("quote-visible");
+    quoteTextEl.classList.remove("quote-visible");
     authorEl.classList.remove("quote-visible");
     authorProfileEl.classList.remove("quote-visible");
+    badgeEl.style.display = "none";
+    userQuoteEl.textContent = "";
+    userQuoteEl.classList.remove("visible");
 
     setTimeout(async () => {
       const res = await fetch(quoteFile);
       const data = await res.json();
       const random = data[Math.floor(Math.random() * data.length)];
 
-      quoteEl.innerHTML = `"${random.message}"`;
+      quoteTextEl.textContent = `"${random.message}"`;
 
       if (isAffirmationMode) {
         authorEl.textContent = "";
         authorProfileEl.textContent = "";
+        countAffirmation(random.message); // ✅ 확언 모드일 때 카운트
       } else {
         authorEl.textContent = `- ${random.author}`;
         authorProfileEl.textContent = random.authorProfile;
+        badgeEl.style.display = "none"; // 명언 모드일 땐 badge 숨기기
       }
 
-      quoteEl.classList.add("quote-visible");
+      quoteTextEl.classList.add("quote-visible");
       authorEl.classList.add("quote-visible");
       authorProfileEl.classList.add("quote-visible");
     }, 100);
   } catch (err) {
-    quoteEl.textContent = "문장을 불러오지 못했습니다.";
+    quoteTextEl.textContent = "문장을 불러오지 못했습니다.";
     authorEl.textContent = "";
     authorProfileEl.textContent = "";
+    badgeEl.style.display = "none";
   }
 }
 
+// ✅ 초기 실행
 document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("new-quote");
-  button.addEventListener("click", fetchQuote);
+  document.getElementById("new-quote").addEventListener("click", fetchQuote);
   fetchQuote();
+  quoteBtn.classList.add("fade-in");
 });
 
+// ✅ 모드 전환
 document.getElementById("modeSwitch").addEventListener("change", (e) => {
   isAffirmationMode = e.target.checked;
 
-  // 모두 fade-out 처리
-  quoteBtn.classList.remove("fade-in");
-  quoteBtn.classList.add("fade-out");
-
-  affirmationWrapper.classList.remove("fade-in");
-  affirmationWrapper.classList.add("fade-out");
-
-  // 0.2초 후 fade-in
-  setTimeout(() => {
-    if (isAffirmationMode) {
-      affirmationWrapper.classList.remove("fade-out");
-      affirmationWrapper.classList.add("fade-in");
-      quoteBtn.classList.remove("fade-in");
-    } else {
-      quoteBtn.classList.remove("fade-out");
-      quoteBtn.classList.add("fade-in");
-      affirmationWrapper.classList.remove("fade-in");
-    }
-  }, 200);
+  quoteBtn.classList.toggle("fade-in", !isAffirmationMode);
+  quoteBtn.classList.toggle("fade-out", isAffirmationMode);
+  affirmationWrapper.classList.toggle("fade-in", isAffirmationMode);
+  affirmationWrapper.classList.toggle("fade-out", !isAffirmationMode);
 
   fetchQuote();
 });
 
+// ✅ 확언 전송
 document.getElementById("affirmationSubmit").addEventListener("click", () => {
   const input = document.getElementById("affirmationInput").value.trim();
-  if (input) {
-    document.getElementById("quote").textContent = `"${input}"`;
-    document.getElementById("author").textContent = "";
-    document.getElementById("authorProfile").textContent = "";
-    document.getElementById("quote").classList.add("quote-visible");
-    document.getElementById("author").classList.add("quote-visible");
-    document.getElementById("authorProfile").classList.add("quote-visible");
-  }
+  if (!input) return;
+
+  userQuoteEl.textContent = `"${input}"`;
+  userQuoteEl.className = "user-quote-text visible";
+
+  authorEl.textContent = "";
+  authorProfileEl.textContent = "";
+  document.getElementById("affirmationInput").value = "";
+
+  setTimeout(() => {
+    userQuoteEl.className = "user-quote-text";
+    userQuoteEl.textContent = "";
+    fetchQuote(); // 다음 확언으로
+  }, 1500);
 });
