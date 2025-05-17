@@ -17,7 +17,6 @@ html, body {
   align-items: center;
 }
 
-/* 스위치: 상단 1/4 지점 */
 .mode-toggle {
   position: absolute;
   top: 25vh;
@@ -25,7 +24,6 @@ html, body {
   transform: translateX(-50%);
 }
 
-/* 명언 중앙 정렬 */
 .quote-area {
   flex: 1;
   display: flex;
@@ -38,6 +36,10 @@ html, body {
 
 .quote-content {
   max-width: 500px;
+}
+
+.quote-wrapper {
+  position: relative;
 }
 
 .quote-text,
@@ -70,40 +72,34 @@ html, body {
   opacity: 1;
 }
 
-/* 하단 버튼 */
 .button-wrapper {
   position: absolute;
-  bottom: 36vh;
+  bottom: 37vh;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .quote-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: transparent;
+  background-color: #333;
+  color: #fff;
   border: none;
+  border-radius: 50%;
   cursor: pointer;
+  padding: 6px 10px;
+  font-size: 0.95rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.shuffle-icon {
-  width: 40px;
-  height: 40px;
-}
-
 .quote-button:hover {
-  background-color: #ececec;
+  background-color: #464646;
 }
 
 .quote-button:active {
   transform: scale(0.97);
 }
 
-/* 스위치 스타일 */
 .switch {
   position: relative;
   display: inline-block;
@@ -142,16 +138,38 @@ html, body {
   transform: translateX(22px);
 }
 
-/* 확언 입력 영역 */
 .affirmation-input-wrapper {
   position: absolute;
   bottom: 37vh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 8px;
   opacity: 0;
   pointer-events: none;
+}
+
+.user-quote-text {
+  font-size: 1rem;
+  color: #4c89af;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.user-quote-text.visible {
+  opacity: 1;
+}
+
+.count-badge {
+  position: absolute;
+  top: -50px;
+  right: -10px;
+  background-color: #ffffff00;
+  color: #b4b4b4;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  padding: 4px 7px;
 }
 
 #affirmationInput {
@@ -163,16 +181,16 @@ html, body {
 }
 
 #affirmationSubmit {
-  padding: 3px 15px;
-  font-size: 0.95rem;
+  padding: 2.5px 12.5px;
+  font-size: 1rem;
+  text-align: center;
   background-color: #333;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 50%;
   cursor: pointer;
 }
 
-/* 전환 효과 */
 .fade-transition {
   transition: opacity 0.25s ease, transform 0.25s ease;
   opacity: 0;
