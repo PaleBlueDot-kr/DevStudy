@@ -19,7 +19,13 @@
     <!-- 명언 출력 -->
     <main class="quote-area" id="quote-area">
       <div class="quote-content">
-        <div id="quote" class="quote-text">"명언이 여기에 표시됩니다"</div>
+        <div class="quote-wrapper">
+          <div id="quote" class="quote-text-wrapper">
+            <span class="quote-text" id="quoteText">"명언이 여기에 표시됩니다"</span>
+            <span id="affirmationCountBadge" class="count-badge" style="display: none;">0</span>
+          </div>
+          <div id="userQuote" class="user-quote-text"></div>
+        </div>
         <div id="author" class="quote-author">- 작가</div>
         <div id="authorProfile" class="quote-authorProfile">작가 설명</div>
       </div>
@@ -27,17 +33,16 @@
 
     <!-- 주사위 버튼 -->
     <div class="button-wrapper fade-transition" id="buttonWrapper">
-      <button id="new-quote" class="quote-button">
-        <img src="images/shuffle-icon.png" alt="주사위" class="shuffle-icon" />
-      </button>
+      <button id="new-quote" class="quote-button">⮂</button>
     </div>
 
     <!-- 확언 입력 -->
     <div class="affirmation-input-wrapper fade-transition" id="affirmationWrapper">
       <input type="text" id="affirmationInput" placeholder="확언을 입력하세요" />
-      <button id="affirmationSubmit">Send</button>
+      <button id="affirmationSubmit">𖤂</button>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
